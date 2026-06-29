@@ -26,7 +26,7 @@ const renderCountry = function (country, className = "") {
 
   countriesContainer.insertAdjacentHTML("beforeend", html);
 
-  //   countriesContainer.style.opacity = 1;
+    countriesContainer.style.opacity = 1;
 };
 
 const renderError = function (msg) {
@@ -176,7 +176,7 @@ const getJSON = function (url, key) {
 // setTimeout(()=>console.log('0 sec timer',0));
 // Promise.resolve('Resolved promise 1').then(res=>console.log(res));
 // Promise.resolve('Resolved promise 2').then(res=>{
-//   for(let i=0;i<10000000000;i++){
+//   for(let i=0;idata.data.objects[0]<10000000000;i++){
 
 //   }
 //   console.log(res);
@@ -326,28 +326,42 @@ const createImage = function (imgPath) {
 };
 
 let currentImage;
-createImage("img/img-1.jpg")
-  .then((img) => {
-    currentImage = img;
-    console.log("image 1 is loaded");
-    return wait(2);
-  })
-  .then(() => {
-    currentImage.style.display = "none";
-    return createImage("img/img-2.jpg");
-  })
-  .then((img) => {
-    currentImage = img;
-    console.log("image 2 is loaded");
-    return wait(2);
-  }).then(() => {
-    currentImage.style.display = "none";
-    return createImage("img/img-3.jpg");
-  }).then((img) => {
-    currentImage = img;
-    console.log("image 3 is loaded");
-    return wait(2);
-  })
-  .then(() => {
-    currentImage.style.display = "none";})
-  .catch((err) => console.error(err));
+// createImage("img/img-1.jpg")
+//   .then((img) => {
+//     currentImage = img;
+//     console.log("image 1 is loaded");
+//     return wait(2);
+//   })
+//   .then(() => {
+//     currentImage.style.display = "none";
+//     return createImage("img/img-2.jpg");
+//   })
+//   .then((img) => {
+//     currentImage = img;
+//     console.log("image 2 is loaded");
+//     return wait(2);
+//   }).then(() => {
+//     currentImage.style.display = "none";
+//     return createImage("img/img-3.jpg");
+//   }).then((img) => {
+//     currentImage = img;
+//     console.log("image 3 is loaded");
+//     return wait(2);
+//   })
+//   .then(() => {
+//     currentImage.style.display = "none";})
+//   .catch((err) => console.error(err));
+
+
+  const whereAmI=async function(country){
+    const res=await fetch(`https://api.restcountries.com/countries/v5?q=${country}`, {
+      headers: {
+        "Authorization": "Bearer rc_live_fa6722fbe0a04c03896e91b097cc183f"
+      }
+    });
+    const data=await res.json();
+    console.log(data.data.objects[0]);
+    renderCountry(data.data.objects[0]);
+  }
+whereAmI("portugal");
+console.log("first");
